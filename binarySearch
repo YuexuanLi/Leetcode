@@ -11,9 +11,9 @@ public class Solution {
 			if (nums[middle] == target) {
 				return middle;
 			} else if (nums[middle] > target) {
-				end = middle - 1;
+				end = middle;
 			} else {
-				start = middle + 1;
+				start = middle;
 			}
 		}
 		return -1;
