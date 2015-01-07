@@ -7,7 +7,7 @@ public class Solution {
 		int end = nums.length - 1;
 
 		while (start <= end) {
-			int middle = start + (end - start) / 2;
+			int middle = start + (end - start) / 2;  //避免序号越界
 			if (nums[middle] == target) {
 				return middle;
 			} else if (nums[middle] > target) {
