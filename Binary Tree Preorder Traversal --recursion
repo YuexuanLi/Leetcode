@@ -18,7 +18,7 @@ public class Solution {
     }
     
     private void preorder(TreeNode root, ArrayList<Integer> traverse) {
-        if (root == null) {
+        if (root == null) {    //递归程序将边界判断和异常判断放在上面一层
             return;
         }
         
