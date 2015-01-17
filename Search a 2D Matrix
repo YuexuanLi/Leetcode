@@ -1,0 +1,43 @@
+//https://oj.leetcode.com/problems/search-a-2d-matrix/
+public class Solution { //http://blog.csdn.net/linhuanmars/article/details/24216235
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+        int row = matrix.length;
+        int col = matrix[0].length;
+        
+        int start, end, mid;
+        start = 0;
+        end = row - 1;
+        
+        while (start <= end) {
+            mid = start + (end - start) / 2;
+            if (matrix[mid][0] == target) {
+                return true;
+            } else if (matrix[mid][0] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        int m = end;
+        if (m < 0) {
+            return false;  //{{1}}, 0,也就是target比matrix[0][0]还小，返回end是-1，则false
+        }
+        start = 0;
+        end = col - 1;
+        
+        while (start <= end) {
+            mid = start + (end - start) / 2;
+            if (matrix[m][mid] == target) {
+                return true;
+            } else if (matrix[m][mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return false;
+    }
+}
