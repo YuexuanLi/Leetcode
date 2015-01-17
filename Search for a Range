@@ -4,6 +4,10 @@ public class Solution {//二分搜索变体，分别搜索最先出现的index�
         int start, end, mid;
         int[] bound = new int[2];
         
+        if (A == null || A.length == 0) {
+            bound[0] = bound[1] = -1;
+            return bound;
+        }//这里可以不检验？why
         start = 0;
         end = A.length - 1;
         
@@ -24,7 +28,7 @@ public class Solution {//二分搜索变体，分别搜索最先出现的index�
         } else {
             bound[0] = bound[1] = -1;
             return bound;
-        }
+        }why
         
         
         start = 0;
