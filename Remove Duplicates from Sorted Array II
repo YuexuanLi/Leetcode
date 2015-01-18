@@ -1,0 +1,21 @@
+public class Solution {  //https://oj.leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+	public int removeDuplicates(int[] A) {
+	    int curr = 2;
+	    int prev = 1;
+
+		if (A.length < 3) {
+			return A.length;
+		}
+		
+		while (curr < A.length){
+		if (A[curr] == A[prev] && A[curr] == A[prev-1]){
+		    curr++;
+		}else{
+		    prev++;
+		    A[prev] = A[curr];
+		    curr++;
+		}
+		}
+		return prev + 1;
+	}
+}
