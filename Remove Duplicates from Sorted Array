@@ -1,20 +1,17 @@
 //https://oj.leetcode.com/problems/remove-duplicates-from-sorted-array/
 public class Solution {
     public static int removeDuplicates(int[] A) {
-        int count = 0;
-        
-        if (A.length < 2){
+        int count = 0;  //重复元素的个数
+        if (A.length < 2) {
             return A.length;
         }
-        
-        for (int i = 1; i < A.length; i++){
-            if (A[i] == A[i-1]){
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] == A[i - 1]) {
                 count++;
-            }else{
-                A[i-count] = A[i];
+            } else {
+                A[i - count] = A[i]; //在不相等的情况下将后面元素依次向前移动count个位置
             }
         }
-        
         return A.length - count;
     }
 }
