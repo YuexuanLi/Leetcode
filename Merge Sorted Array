@@ -1,0 +1,25 @@
+//https://oj.leetcode.com/problems/merge-sorted-array/
+//http://blog.sina.com.cn/s/blog_7f8e53c10101kqv0.html
+// 一般而言，我们如果正向遍历数组不满足时间复杂度的时候，不妨尝试一下<*逆向遍历*>。
+// 比如说1,7,9,11和2,3,4,5,8当比较1 和2的时候，不做操作，当比较7和2的时候，将7后移，当比较7和3的时候，再次将7后移，当比较7和4的时候....
+// 我们发现，正向遍历时，某个元素移位后的位置并不一定的最终位置。因此不妨从后向前遍历，两个数组元素一共有9个，那么比较11和8，显然，11是两个数组中最大的，其最终下标是8，再比较9和8，同理，确定9的最终下标，以此类推。
+public class Solution {
+    public void merge(int A[], int m, int B[], int n) {
+        int i = m-1, j = n-1, h = m+n-1;
+        while (i >= 0 && j >= 0) {
+            if(A[i] > B[j]) {
+                A[h] = A[i];
+                i--;
+            } else {
+                A[h] = B[j];
+                j--;
+            }
+            h--;
+        }
+        while (j >= 0){
+            A[h] = B[j];
+            j--;
+            h--;
+        }
+    }
+}
