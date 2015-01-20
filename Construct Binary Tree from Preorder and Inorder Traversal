@@ -1,0 +1,42 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+//https://oj.leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+// <1>已知二叉树的前序序列和中序序列，求解树。
+// 1、确定树的根节点。树根是当前树中所有元素在前序遍历中最先出现的元素。
+// 2、求解树的子树。找出根节点在中序遍历中的位置，根左边的所有元素就是左子树，根右边的所有元素就是右子树。若根节点左边或右边为空，则该方向子树为空；若根节点
+// 边和右边都为空，则根节点已经为叶子节点。
+// 3、递归求解树。将左子树和右子树分别看成一棵二叉树，重复1、2、3步，直到所有的节点完成定位。
+
+public class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder.length != inorder.length) {
+            return null;
+        }
+        return myTree(inorder, 0, inorder.length - 1, preorder, 0, preorder.length - 1);
+    }
+    private int findRoot(int[] inorder, int start, int end, int key) {  //先在中序序列中寻找root
+        for (int i = 0; i <= end; i++) {
+            if (inorder[i] == key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    private TreeNode myTree(int[] inorder, int instart, int inend, int[] preorder, int prestart, int preend) { //构造树
+        if (instart >inend) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[prestart]);
+        int position = findRoot(inorder, instart, inend, preorder[prestart]);
+        root.left = myTree(inorder, instart, position - 1, preorder, prestart + 1, prestart + position - instart);
+        root.right = myTree(inorder, position + 1, inend, preorder, preend - inend + position + 1, preend);
+        return root;
+    }
+}
