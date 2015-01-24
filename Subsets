@@ -1,0 +1,20 @@
+public class Solution {//https://oj.leetcode.com/problems/subsets/ 回溯吧少年
+    public ArrayList<ArrayList<Integer>> subsets(int[] S) {
+        Arrays.sort(S);
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        result.add(list);
+        subset(result, list, S, 0);
+        return result;
+        
+    }
+    
+    public void subset(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> list, int[] S, int position) {
+        for (int i = position; i < S.length; i++) {
+            list.add(S[i]);
+            result.add(new ArrayList<Integer>(list));
+            subset(result, list, S, i + 1);
+            list.remove(list.size() - 1);
+        }
+    }
+}
