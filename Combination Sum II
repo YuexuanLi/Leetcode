@@ -1,0 +1,33 @@
+//https://oj.leetcode.com/problems/combination-sum-ii/
+//和1的区别：元素不能重复用
+public class Solution {
+    public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
+        Arrays.sort(num);
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        if (num == null && num.length == 0) {
+            return result;
+        }
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        helper(result, list, num, target, 0);
+        return result;
+    }
+    
+    private void helper(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> list, int[] num, int target, int index) {
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            result.add(new ArrayList<Integer>(list));
+            return;
+        }
+        
+        for (int i = index; i < num.length; i++) {
+            if (i > index && num[i] == num[i - 1]) {
+                continue;//在这里我们还是需要在每一次for循环前做一次判断，因为虽然一个元素不可以重复使用，但是如果这个元素重复出现是允许的，但是为了避免出现重复的结果集，我们只对于第一次得到这个数进行递归，接下来就跳过这个元素了，因为接下来的情况会在上一层的递归函数被考虑到，这样就可以避免重复元素的出现。这个问题可能会觉得比较绕，大家仔细想想就明白了哈。
+            }
+            list.add(num[i]);
+            helper(result, list, num, target - num[i], i + 1);
+            list.remove(list.size() - 1);
+        }
+    }
+}
