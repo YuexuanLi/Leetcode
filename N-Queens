@@ -1,0 +1,52 @@
+//https://oj.leetcode.com/problems/n-queens/
+public class Solution {
+    public ArrayList<String[]> solveNQueens(int n) {
+        ArrayList<String[]> result = new ArrayList<String[]>();
+        if (n <= 0) {
+            return result;
+        }
+        ArrayList<Integer> column = new ArrayList<Integer>();
+        search(column, result, n);
+        return result;
+    }
+    
+    private String[] drawChessboard(ArrayList<Integer> column) {
+        String[] chessboard = new String[column.size()];
+        for (int i = 0; i < column.size(); i++) {
+            chessboard[i] = "";
+            for (int j = 0; j < column.size(); j++) {
+                if (j == column.get(i)) {
+                    chessboard[i] += "Q";
+                } else {
+                    chessboard[i] += ".";
+                }
+            }
+        }
+        return chessboard;
+    }
+    
+    private boolean isValid(ArrayList<Integer> column, int col) {
+        int row = column.size();
+        for (int i = 0; i < row; i++) {
+            if (column.get(i) == col || i - column.get(i) == row - col || i + column.get(i) == row + col) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private void search(ArrayList<Integer> column, ArrayList<String[]> result, int n) {
+        if (column.size() == n) {
+            result.add(drawChessboard(column));
+            return;
+        } 
+        for (int i = 0; i < n; i++) {
+            if (!isValid(column, i)) {
+                continue;
+            }
+            column.add(i);
+            search(column, result, n);
+            column.remove(column.size() - 1);
+        }
+    }
+}
