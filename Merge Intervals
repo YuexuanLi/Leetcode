@@ -1,0 +1,42 @@
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+ 
+ //https://leetcode.com/problems/merge-intervals/
+ //先重写compare方法以便按start讲所有子集排序。取last为前一个子集，curr为现在的子集。
+ //如果curr的start大于last的end，则要判断是否需要合并，否则将last加入result
+public class Solution {
+    public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
+        if (intervals == null || intervals.size() <= 1) {
+            return intervals;
+        }
+        
+        Collections.sort(intervals, new IntervalComparator());
+        ArrayList<Interval> result = new ArrayList<Interval>();
+        Interval last = intervals.get(0);
+        
+        for (int i = 1; i < intervals.size(); i++) {
+            Interval curr = intervals.get(i);
+            if (last.end >= curr.start) {
+                last.end = Math.max(last.end, curr.end);
+            } else {
+                result.add(last);
+                last = curr;
+            }
+        }
+        result.add(last);
+        return result;
+    }
+    
+    public class IntervalComparator implements Comparator<Interval>{
+        public int compare(Interval a, Interval b) {
+            return a.start - b.start;
+        }
+    } 
+}
