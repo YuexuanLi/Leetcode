@@ -26,7 +26,7 @@ public class Solution {
     }
     
     private boolean isValid(ArrayList<Integer> column, int col) {
-        int row = column.size();//理解程序的重要条件，限制了比较的行数
+        int row = column.size();//理解程序的重要条件，限制了比较的行数(即已经有元素加入的行数)
         for (int i = 0; i < row; i++) {
         //判定条件是：1.col和row相等（在对角线上）2.x,y的差或和相等
             if (column.get(i) == col || i - column.get(i) == row - col || i + column.get(i) == row + col) {
