@@ -1,0 +1,43 @@
+//夹逼，先找到整个数组中的最大高度，然后从两边向中间最高点夹逼。
+//设一个prev点记录当前最高点，若遇到更高的，
+//则记录此点并且sum它到制高点的矩形面积。记得每次对i操作过要减去当前柱子高度。
+public class Solution {
+    public int trap(List<Integer> height) {
+        if (height == null || height.size() <= 0) {
+            return 0;
+        }
+        
+        int sum = 0;
+        int max = 0;
+        int maxIndex = 0;
+        
+        for (int i = 0; i < height.size(); i++) {
+            if (max < height.get(i)) {
+                max = height.get(i);
+                maxIndex = i;
+            }
+        }
+        
+        int prev = 0;
+        for (int i = 0; i < maxIndex; i++) {
+            if (prev < height.get(i)) {
+                sum += (height.get(i) - prev) * (maxIndex - i);
+                prev = height.get(i);
+            }
+            sum -= height.get(i);
+        }
+        
+        prev = 0;
+        
+        for (int i = height.size() - 1; i > maxIndex; i--) {
+            if (prev < height.get(i)) {
+                sum += (height.get(i) - prev) * (i - maxIndex);
+                prev = height.get(i);
+            }
+            sum -= height.get(i);
+        }
+        
+        return sum;
+        
+    }
+}
